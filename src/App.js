@@ -1,25 +1,102 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
 
+class SwapiService {
+  _apiBase = "https://swapi.dev/api/";
+
+  async getResource(url) {
+    const res = await fetch(`${this._apiBase}${url}`);
+    if (!res.ok) {
+      throw new Error(`Could not fetch ${url}, received ${res.status} `);
+    }
+    const body = await res.json();
+    return body;
+  }
+  async getAllPeople() {
+    const res = await this.getResource(`people/`);
+    return res.results;
+  }
+  getPerson(id) {
+    return this.getResource(`people/${id}/`);
+  }
+  async getAllPlanets() {
+    const res = await this.getResource(`planets/`);
+    return res.results;
+  }
+  getPlanet(id) {
+    return this.getResource(`planets/${id}/`);
+  }
+  async getAllStarships() {
+    const res = await this.getResource(`starships/`);
+    return res.results;
+  }
+  getStarship(id) {
+    return this.getResource(`starships/${id}/`);
+  }
+}
+
+const swapi = new SwapiService();
+
+swapi
+  .getAllPeople()
+  .then((people) => {
+    people.forEach((p) => {
+      console.log("getAllPeople " + p.name);
+    });
+  })
+  .catch((err) => {
+    console.error("Could not fetch", err);
+  });
+
+swapi
+  .getPerson(3)
+  .then((person) => {
+    console.log("getPerson " + person.name);
+  })
+  .catch((err) => {
+    console.error("Could not fetch", err);
+  });
+
+swapi
+  .getAllPlanets()
+  .then((planets) => {
+    planets.forEach((p) => {
+      console.log("getAllPlanets " + p.name);
+    });
+  })
+  .catch((err) => {
+    console.error("Could not fetch", err);
+  });
+
+swapi
+  .getPlanet(3)
+  .then((planet) => {
+    console.log("getPlanet " + planet.name);
+  })
+  .catch((err) => {
+    console.error("Could not fetch", err);
+  });
+
+swapi
+  .getAllStarships()
+  .then((planets) => {
+    planets.forEach((p) => {
+      console.log("getAllStarships " + p.name);
+    });
+  })
+  .catch((err) => {
+    console.error("Could not fetch", err);
+  });
+
+swapi
+  .getStarship(3)
+  .then((planet) => {
+    console.log("getStarship " + planet.name);
+  })
+  .catch((err) => {
+    console.error("Could not fetch", err);
+  });
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  return <div className="App">app</div>;
 }
 
 export default App;
