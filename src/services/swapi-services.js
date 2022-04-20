@@ -1,6 +1,4 @@
-import "./App.css";
-
-class SwapiService {
+export default class SwapiService {
   _apiBase = "https://swapi.dev/api/";
 
   async getResource(url) {
@@ -95,8 +93,3 @@ swapi
   .catch((err) => {
     console.error("Could not fetch", err);
   });
-function App() {
-  return <div className="App">app</div>;
-}
-
-export default App;
