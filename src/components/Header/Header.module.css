@@ -1,0 +1,21 @@
+.header {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding-left: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.nav {
+  display: flex;
+  padding: 0;
+  margin: 0;
+}
+.link {
+  list-style-type: none;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  border-radius: 3px;
+}
+.link :hover {
+  background-color: #444;
+}
