@@ -22,7 +22,7 @@ export default class RandomPlanet extends Component {
   };
 
   updatePlanet() {
-    const id = 12;
+    const id = Math.floor(Math.random() * 25) + 2;
     this.swapiService.getPlanet(id).then(this.onPlanetLoaded);
   }
 
@@ -40,15 +40,15 @@ export default class RandomPlanet extends Component {
         <div>
           <h4>{name}</h4>
           <ul className={cn(styles.items, "list-group", "list-group-flush")}>
-            <li className={cn(styles.item,"list-group-item")}>
+            <li className={cn(styles.item, "list-group-item")}>
               <span className={cn(styles.term)}>Population</span>
               <span>{population}</span>
             </li>
-            <li className={cn(styles.item,"list-group-item")}>
+            <li className={cn(styles.item, "list-group-item")}>
               <span className={cn(styles.term)}>Rotation Period</span>
               <span>{rotationPeriod}</span>
             </li>
-            <li className={cn(styles.item,"list-group-item")}>
+            <li className={cn(styles.item, "list-group-item")}>
               <span className={cn(styles.term)}>Diameter</span>
               <span>{diameter}</span>
             </li>

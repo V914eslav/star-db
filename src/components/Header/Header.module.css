@@ -14,7 +14,9 @@
 .linkItem :hover {
   background-color: #444;
 }
-
+.link {
+  text-decoration: none;
+}
 .link:hover {
   text-decoration: none;
 }
