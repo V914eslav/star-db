@@ -29,38 +29,43 @@ export default class RandomPlanet extends Component {
   }
 
   render() {
-    const {
-      planet: { id, name, population, rotationPeriod, diameter },
-      loading,
-    } = this.state;
-    if (loading) {
-      return <Spinner />;
-    }
+    const { planet, loading } = this.state;
+    const spinner = loading ? <Spinner /> : null;
+    const content = !loading ? <PlanetView planet={planet} /> : null;
 
     return (
       <div className={cn(styles.randomPlanet, "jumbotron", "rounded")}>
-        <img
-          className={cn(styles.planetImage)}
-          src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`}
-        />
-        <div>
-          <h4>{name}</h4>
-          <ul className={cn(styles.items, "list-group", "list-group-flush")}>
-            <li className={cn(styles.item, "list-group-item")}>
-              <span className={cn(styles.term)}>Population</span>
-              <span>{population}</span>
-            </li>
-            <li className={cn(styles.item, "list-group-item")}>
-              <span className={cn(styles.term)}>Rotation Period</span>
-              <span>{rotationPeriod}</span>
-            </li>
-            <li className={cn(styles.item, "list-group-item")}>
-              <span className={cn(styles.term)}>Diameter</span>
-              <span>{diameter}</span>
-            </li>
-          </ul>
-        </div>
+        {spinner}
+        {content}
       </div>
     );
   }
 }
+const PlanetView = ({ planet }) => {
+  const { id, name, population, rotationPeriod, diameter } = planet;
+  return (
+    <React.Fragment>
+      <img
+        className={cn(styles.planetImage)}
+        src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`}
+      />
+      <div>
+        <h4>{name}</h4>
+        <ul className={cn(styles.items, "list-group", "list-group-flush")}>
+          <li className={cn(styles.item, "list-group-item")}>
+            <span className={cn(styles.term)}>Population</span>
+            <span>{population}</span>
+          </li>
+          <li className={cn(styles.item, "list-group-item")}>
+            <span className={cn(styles.term)}>Rotation Period</span>
+            <span>{rotationPeriod}</span>
+          </li>
+          <li className={cn(styles.item, "list-group-item")}>
+            <span className={cn(styles.term)}>Diameter</span>
+            <span>{diameter}</span>
+          </li>
+        </ul>
+      </div>
+    </React.Fragment>
+  );
+};
