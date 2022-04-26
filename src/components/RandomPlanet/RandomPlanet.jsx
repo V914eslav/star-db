@@ -5,6 +5,7 @@ import Spinner from "../Spinner";
 
 import cn from "classnames";
 import styles from "./RandomPlanet.module.css";
+import ErrorMessage from "../ErrorMessage";
 
 export default class RandomPlanet extends Component {
   swapiService = new SwapiService();
@@ -19,6 +20,12 @@ export default class RandomPlanet extends Component {
     super();
     this.updatePlanet();
   }
+  onError = () => {
+    this.setState({
+      error: true,
+      loading: false,
+    });
+  };
 
   onPlanetLoaded = (planet) => {
     this.setState({ planet, loading: false });
@@ -26,16 +33,24 @@ export default class RandomPlanet extends Component {
 
   updatePlanet() {
     const id = Math.floor(Math.random() * 25) + 2;
-    this.swapiService.getPlanet(id).then(this.onPlanetLoaded);
+    this.swapiService
+      .getPlanet(id)
+      .then(this.onPlanetLoaded)
+      .catch(this.onError);
   }
 
   render() {
-    const { planet, loading } = this.state;
+    const { planet, loading, error } = this.state;
+
+    const hasData = !(loading || error);
+
+    const errorMessage = error ? <ErrorMessage /> : null;
     const spinner = loading ? <Spinner /> : null;
-    const content = !loading ? <PlanetView planet={planet} /> : null;
+    const content = hasData ? <PlanetView planet={planet} /> : null;
 
     return (
       <div className={cn(styles.randomPlanet, "jumbotron", "rounded")}>
+        {errorMessage}
         {spinner}
         {content}
       </div>
