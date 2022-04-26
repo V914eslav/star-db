@@ -4,6 +4,7 @@ import Header from "../Header";
 import ItemList from "../ItemList/ItemList";
 import RandomPlanet from "../RandomPlanet";
 import PersonDetails from "../PersonDetails";
+import ErrorMessage from "../ErrorMessage";
 
 // import styles from "./App.module.css";
 
