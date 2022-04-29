@@ -18,7 +18,7 @@ export default class PersonDetails extends Component {
       this.updatePerson();
     }
   }
-
+ 
   updatePerson() {
     const { personId } = this.props;
     if (!personId) {
