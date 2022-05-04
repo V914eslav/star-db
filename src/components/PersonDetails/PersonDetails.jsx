@@ -18,7 +18,6 @@ export default class PersonDetails extends Component {
       this.updatePerson();
     }
   }
- 
   updatePerson() {
     const { personId } = this.props;
     if (!personId) {
@@ -40,6 +39,7 @@ export default class PersonDetails extends Component {
         <img
           className={cn(styles.personImage)}
           src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
+          alt="img"
         />
 
         <div className={cn("card-body")}>
