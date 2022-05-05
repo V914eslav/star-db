@@ -4,6 +4,8 @@ import cn from "classnames";
 import styles from "./PersonDetails.module.css";
 import SwapiService from "../../services/swapi-service";
 
+import ErrorButton from "../ErrorButton";
+
 export default class PersonDetails extends Component {
   swapiService = new SwapiService();
   state = {
@@ -62,6 +64,7 @@ export default class PersonDetails extends Component {
             </li>
           </ul>
         </div>
+        <ErrorButton />
       </div>
     );
   }
