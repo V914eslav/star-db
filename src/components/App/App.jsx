@@ -4,26 +4,28 @@ import Header from "../Header";
 import RandomPlanet from "../RandomPlanet";
 import PeoplePage from "../../containers/PeoplePage/PeoplePage";
 
-import ErrorMessage from "../ErrorMessage";
+import ErrorBoundry from "../ErrorBoundry";
 import ErrorButton from "../ErrorButton/ErrorButton";
+import ItemDetails from "../ItemDetails/ItemDetails";
 
 import SwapiService from "../../services/swapi-service";
 
 import styles from "./App.module.css";
 import cn from "classnames";
+import Row from "../Row";
 
 export default class App extends Component {
   swapiService = new SwapiService();
 
   state = {
     showRandomPlanet: true,
-    hasError: false,
+    selectedPerson: 3,
   };
 
   toggleRandomPlanet = () => {
     this.setState((state) => {
       return {
-        showRandomPlanet: !state.showRandomPlanet, 
+        showRandomPlanet: !state.showRandomPlanet,
       };
     });
   };
@@ -33,35 +35,44 @@ export default class App extends Component {
       selectedPerson: id,
     });
   };
-  componentDidCatch() {
-    console.log("componentDidCatch()");
-    this.setState({
-      hasError: true,
-    });
-  }
-  render() {
-    if (this.state.hasError) {
-      return <ErrorMessage />;
-    }
-    const planet = this.state.showRandomPlanet ? <RandomPlanet /> : null;
-    return (
-      <div className="stardb-app">
-        <Header />
-        {planet}
-        <div
-          className={cn("row", "mb2", "button-row", styles["button-wrapper"])}
-        >
-          <button
-            className={cn("toggle-planet", "btn", "btn-warning", "btn-lg")}
-            onClick={this.toggleRandomPlanet}
-          >
-            Toggle Random Planet
-          </button>
-          <ErrorButton />
-        </div>
 
-        <PeoplePage />
-      </div>
+  render() {
+    const planet = this.state.showRandomPlanet ? <RandomPlanet /> : null;
+    const personDetails = (
+      <ItemDetails
+        itemId={11}
+        getData={this.swapiService.getPerson}
+        getImageUrl={this.swapiService.getPersonImage}
+      />
+    );
+    const starshipDetails = (
+      <ItemDetails
+        itemId={5}
+        getData={this.swapiService.getStarship}
+        getImageUrl={this.swapiService.getStarshipImage}
+      />
+    );
+    return (
+      <ErrorBoundry>
+        <div className="stardb-app">
+          <Header />
+          <Row left={personDetails} right={starshipDetails} />
+        </div>
+      </ErrorBoundry>
     );
   }
 }
+// {planet}
+// <div
+//   className={cn("row", "mb2", "button-row", styles["button-wrapper"])}
+// >
+//   <button
+//     className={cn("toggle-planet", "btn", "btn-warning", "btn-lg")}
+//     onClick={this.toggleRandomPlanet}
+//   >
+//     Toggle Random Planet
+//   </button>
+//   <ErrorButton />
+// </div>
+
+// <PeoplePage />

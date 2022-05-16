@@ -9,46 +9,41 @@ import ErrorButton from "../ErrorButton";
 export default class ItemDetails extends Component {
   swapiService = new SwapiService();
   state = {
-    person: 0,
+    item: 0,
+    image: null,
   };
   componentDidMount() {
-    this.updatePerson();
+    this.updateItem();
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.personId !== prevProps.personId) {
-      this.updatePerson();
+    if (this.props.itemId !== prevProps.itemId) {
+      this.updateItem();
     }
   }
-  updatePerson() {
-    const { personId } = this.props;
-    if (!personId) {
+  updateItem() {
+    const { itemId, getData, getImageUrl } = this.props;
+    if (!itemId) {
       return;
     }
-    this.swapiService.getPerson(personId).then((person) => {
-      this.setState({ person });
+    getData(itemId).then((item) => {
+      this.setState({ item, image: getImageUrl(item) });
     });
   }
   render() {
-    if (!this.state.person) {
+    const { item, image } = this.state;
+    if (!item) {
       return <span>Selected a person from a list</span>;
     }
     const {
-      person: { id, name, gender, birthYear, eyeColor },
+      item: { id, name, gender, birthYear, eyeColor },
     } = this.state;
     return (
       <div className={cn(styles.personDetails, "card")}>
-        <img
-          className={cn(styles.personImage)}
-          src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
-          alt="img"
-        />
+        <img className={cn(styles.personImage)} src={image} alt="img" />
 
         <div className={cn("card-body")}>
-          <h4>
-            {name}
-            {this.props.personId}
-          </h4>
+          <h4>{name}</h4>
           <ul className={cn("list-group", "list-group-flush")}>
             <li className={cn("list-group-item", styles.item)}>
               <span className={cn(styles.term)}>Gender</span>
@@ -63,8 +58,8 @@ export default class ItemDetails extends Component {
               <span>{eyeColor}</span>
             </li>
           </ul>
+          <ErrorButton />
         </div>
-        <ErrorButton />
       </div>
     );
   }
