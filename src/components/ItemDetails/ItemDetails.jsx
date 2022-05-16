@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 
 import cn from "classnames";
-import styles from "./PersonDetails.module.css";
+import styles from "./ItemDetails.module.css";
 import SwapiService from "../../services/swapi-service";
 
 import ErrorButton from "../ErrorButton";
 
-export default class PersonDetails extends Component {
+export default class ItemDetails extends Component {
   swapiService = new SwapiService();
   state = {
     person: 0,

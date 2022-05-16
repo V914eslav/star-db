@@ -3,8 +3,6 @@ import React, { Component } from "react";
 import Header from "../Header";
 import RandomPlanet from "../RandomPlanet";
 import PeoplePage from "../../containers/PeoplePage/PeoplePage";
-import ItemList from "../ItemList";
-import PersonDetails from "../PersonDetails";
 
 import ErrorMessage from "../ErrorMessage";
 import ErrorButton from "../ErrorButton/ErrorButton";
@@ -25,7 +23,7 @@ export default class App extends Component {
   toggleRandomPlanet = () => {
     this.setState((state) => {
       return {
-        showRandomPlanet: !state.showRandomPlanet,
+        showRandomPlanet: !state.showRandomPlanet, 
       };
     });
   };
