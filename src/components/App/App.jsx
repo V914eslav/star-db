@@ -9,6 +9,7 @@ import ErrorButton from "../ErrorButton/ErrorButton";
 import ItemDetails from "../ItemDetails/ItemDetails";
 
 import SwapiService from "../../services/swapi-service";
+import { Record } from "../ItemDetails/ItemDetails";
 
 import styles from "./App.module.css";
 import cn from "classnames";
@@ -43,14 +44,21 @@ export default class App extends Component {
         itemId={11}
         getData={this.swapiService.getPerson}
         getImageUrl={this.swapiService.getPersonImage}
-      />
+      >
+        <Record field="gender" label="Gender" />
+        <Record field="eyeColor" label="Eye Color" />
+      </ItemDetails>
     );
     const starshipDetails = (
       <ItemDetails
         itemId={5}
         getData={this.swapiService.getStarship}
         getImageUrl={this.swapiService.getStarshipImage}
-      />
+      >
+        <Record field="model" label="Model" />
+        <Record field="length" label="Length" />
+        <Record field="cost_in_credits" label={"Cost"} />
+      </ItemDetails>
     );
     return (
       <ErrorBoundry>
